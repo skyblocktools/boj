@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bottle of Jyrre Calculator</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="manifest" href="site.webmanifest">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <style>
+
+            .text-center {
+                text-align: middle;
+                vertical-align: middle;
+            }
+            body {
+                overflow-x: hidden;
+                background-color: aliceblue
+            }
+            .main {
+                background: aliceblue;
+                width: 100%;
+                height: 100%;
+                /*position:fixed;*/
+                justify-content: center;
+            }
+            .slidecontainer{
+                width:100%;
+            }
+            .slider{
+                -webkit-appearance: none; 
+                appearance: none;
+                width: 100%;
+                height: 25px; 
+                background: #d3d3d3; 
+                outline: none;
+                opacity: 0.7;
+                -webkit-transition: .2s; 
+                transition: opacity .2s;
+            }
+            .slider:hover {
+                opacity: 1;
+            }
+            .slider::-webkit-slider-thumb {
+                -webkit-appearance: none; 
+                appearance.: none;
+                width: 25px; 
+                height: 25px; 
+                background: #4CAF50; 
+                cursor: pointer; 
+            }
+
+            .slider::-moz-range-thumb {
+              width: 25px; 
+              height: 25px;
+              background: #4CAF50; 
+              cursor: pointer; 
+            }
+            .content {
+                padding: 10%;
+            }
+            .column {
+                padding: 1%;
+                float: left;
+                width: 50%;
+                text-align: center
+            }
+            .row:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            .outputContainer {
+                height:50%
+            }
+            .outputText {
+                opacity: 0;
+                animation: fade-in 1s ease-out forwards;
+                animation-delay: 0s;
+            }
+            #largeText {
+                opacity: 0;
+                animation: fade-in 1s ease-out forwards;
+                animation-delay: 0.1s;
+            }
+            #intelOutputText {
+                opacity: 0;
+                animation: fade-in 1s ease-out forwards;
+                animation-delay: 0.2s;
+            }
+            #numOutputText {
+                opacity: 0;
+                animation: fade-in 1s ease-out forwards;
+                animation-delay: 0.3s;
+            }
+            #intelRange {
+                opacity: 0;
+                animation: fade-in 1s ease-out forwards;
+                animation-delay: 0.4s;
+            }
+            #countRange {
+                opacity: 0;
+                animation: fade-in 1s ease-out forwards;
+                animation-delay: 0.5s;
+            }
+            #fromOutputText {
+                opacity: 0;
+                animation: fade-in 1s ease-out forwards;
+                animation-delay: 0.6s;
+            }
+            #fromRange {
+                opacity: 0;
+                animation: fade-in 1s ease-out forwards;
+                animation-delay: 0.7s;
+            }
+            #toOutputText {
+                opacity: 0;
+                animation: fade-in 1s ease-out forwards;
+                animation-delay: 0.8s;
+            }
+            #toRange {
+                opacity: 0;
+                animation: fade-in 1s ease-out forwards;
+                animation-delay: 0.9s;
+            }
+            #switchContainer {
+                opacity: 0;
+                animation: fade-in 1s ease-out forwards;
+                animation-delay: 1s;
+            }
+            #bottomText {
+                opacity: 0;
+                animation: fade-in 1s ease-out forwards;
+                animation-delay: 1.1s;
+            }
+            @keyframes fade-in {
+
+                from {margin-top:10px; opacity: 0;}
+                to {margin-top:0px; opacity: 1;}
+            
+            }
+            @keyframes fade-in-disabled {
+
+                from {margin-top:10px; opacity: 0;}
+                to {margin-top:0px; opacity: 0.2;}
+            
+            }
+            .enabled {
+                animation: fade-in 1s ease-out forwards;
+            }
+
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              
+              <li class="nav-item">
+                <span class="navbar-text" style='text-align: center'>
+                    Bottle of Jyrre Calculator
+                </span>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div class='main'>
+            <div class='content'>
+                <div class='outputContainer' id='outputContainer'>
+                    <h2 id='outputText' class='text-center fade-in outputText'>Your Bottle of Jyrre with 1 intelligence would sell for<br><h1 id='largeText' class='text-center fade-in'><b>100.*</b></h1></h2>
+                </div>
+                <table style="width:100%;">
+                    <tr>
+                        <th style='width:50%; padding:1%' id='intelTextContainer'>
+                            <h3 id='intelOutputText' class='text-center fade-in'>Intelligence: 1</h3>
+                        </th>
+                        <th style='width:50%; padding:1%'>
+                            <h3 id='numOutputText' class='text-center fade-in'>Number of Bottles: 1</h3>
+                        </th>
+                        
+                    </tr>
+                    <tr>
+                        <th style='width:50%; padding:1%'>
+                            <div class="slidecontainer" id='intelSlideContainer'>
+                                <input type="range" min="0" max="500" value="1" class="slider fade-in" id="intelRange">
+                            </div>
+                        </th>
+                        <th style='width:50%; padding:1%'>
+                            <div class="slidecontainer">
+                                <input type="range" min="1" max="36" value="1" class="slider fade-in" id="countRange">
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style='width:50%; padding:1%'>
+                            <div class="custom-control custom-switch" id='switchContainer' style='float:left;'>
+                                <input type="checkbox" class="custom-control-input" id="intelSwitch">
+                                <label class="custom-control-label" for="intelSwitch">Toggle intel ranges</label>           
+                            </div>
+                        </th>
+                        <th id='fromToContainer' style='width:50%; padding:1%; opacity: 0.2;'>
+                            <h3 id='fromOutputText' class='text-center fade-in'>From: 1</h3>
+                            <div class="slidecontainer">
+                                <input type="range" min="0" max="499" value="1" class="slider fade-in" id="fromRange">
+                            </div>
+                            <h3 id='toOutputText' class='text-center fade-in'>To: 30</h3>
+                            <div class="slidecontainer">
+                                <input type="range" min="1" max="500" value="30" class="slider fade-in" id="toRange">
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+                <h6 id='bottomText' class='text-center fade-in'>*Sell prices can vary, as you can have part of 1 intel. The price shown is the lowest price possible.</h6>
+            </div>
+        </div>
+        <script>
+            var intelSlider = document.getElementById("intelRange");
+            var numSlider = document.getElementById("countRange");
+            var fromSlider = document.getElementById("fromRange");
+            var toSlider = document.getElementById("toRange");
+            var output = document.getElementById("outputContainer");
+            var outputIntel = document.getElementById("intelOutputText");
+            var outputNum = document.getElementById("numOutputText");
+            var outputFrom = document.getElementById("fromOutputText");
+            var outputTo = document.getElementById("toOutputText");
+            var intelSwitch = document.getElementById("intelSwitch");
+            var fromToContainer = document.getElementById("fromToContainer");
+            var intelTextContainer = document.getElementById("intelTextContainer");
+            var intelSlideContainer = document.getElementById("intelSlideContainer");
+            
+            
+            fromSlider.disabled = true;
+            toSlider.disabled = true;
+            
+            var intel = 1;
+            var bottles = 1;
+            var from = 1;
+            var to = 30;
+            function ConvertMinutes(num){
+              d = Math.floor(num/1440); // 60*24
+              h = Math.floor((num-(d*1440))/60);
+              m = Math.round(num%60);
+
+              if(d>0){
+                return(d + " days, " + h + " hours, and "+m+" minutes");
+              }else{
+                return(h + " hours and "+m+" minutes");
+              }
+            }
+            var increase = 100;
+            var priceList = [100];
+            for (var i = 1; i < 501; i++){
+                priceList.push(priceList[priceList.length-1]+increase);
+                if (i % 20 == 0) {
+                    increase += 100;
+                }
+            }
+            increase = 20;
+            var timeList = [0];
+            for (var i = 1; i < 501; i++){
+                timeList.push(timeList[timeList.length-1]+increase);
+                if (i % 20 == 0) {
+                    increase += 10;
+                }
+            }
+            function numberWithCommas(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+//            output.innerHTML = "<h2 id='outputText' class='text-center fade-in'>Your Bottle of Jyrre with " + intel + "intelligence would sell for<br><h1 class='text-center fade-in'><b>" + numberWithCommas(priceList[intel])+ ".*</b></h1></h2>"
+//            <h2 id='outputText' class='text-center fade-in'>Your Bottle of Jyrre with 1 intelligence would sell for<br><h1 class='text-center fade-in'><b>100.*</b></h1></h2>
+            function updateOutput(){
+                if (intelSwitch.checked){
+                    if (bottles == 1){
+                        output.innerHTML = "<h2 id='outputText' class='text-center'>Your Bottle of Jyrre with that goes from " + from + " to " + to + " intelligence would gain<br><h1 class='text-center fade-in'><b>" + numberWithCommas(priceList[to] - priceList[from])+ ".*</b></h1></h2> <h2 class='text-center'>This would take " + ConvertMinutes((timeList[to]-timeList[from])) + ".</h2><h2 class='text-center'>It would earn an average of " + numberWithCommas(Math.round((priceList[to] - priceList[from])/((timeList[to]-timeList[from]))*10)/10) + " coins per minute.</h2>";
+                    }else{
+                        output.innerHTML = "<h2 id='outputText' class='text-center'>Your " + bottles + " Bottles of Jyrre that go from " + from + " to " + to + " intelligence would gain<br><h1 class='text-center fade-in'><b>" + numberWithCommas((priceList[to] - priceList[from])*bottles) + ".*</b></h1></h2> <h2 class='text-center'>This would take " + ConvertMinutes((timeList[to]-timeList[from])) + ".</h2><h2 class='text-center'>They would earn an average of " + numberWithCommas(Math.round((priceList[to] - priceList[from])/((timeList[to]-timeList[from]))*10*bottles)/10) + " coins per minute.</h2>";
+                    }
+                }else{
+                    if (bottles == 1){
+                        output.innerHTML = "<h2 id='outputText' class='text-center'>Your Bottle of Jyrre with " + intel + " intelligence would sell for<br><h1 class='text-center fade-in'><b>" + numberWithCommas(priceList[intel])+ ".*</b></h1></h2>";
+                    }else{
+                        output.innerHTML = "<h2 id='outputText' class='text-center'>Your " + bottles + " Bottles of Jyrre with " + intel + " intelligence would sell for<br><h1 class='text-center fade-in'><b>" + numberWithCommas(priceList[intel]*bottles)+ ".*</b></h1></h2>";
+                    }
+                }
+                
+            }
+            intelSwitch.oninput = function() {
+                if (intelSwitch.checked) {
+                    fromSlider.disabled = false;
+                    toSlider.disabled = false;
+                    fromToContainer.style.opacity = 1;
+                    intelTextContainer.style.opacity = 0.2;
+                    intelSlideContainer.style.opacity = 0.2;
+                }else{
+                    fromSlider.disabled = true;
+                    toSlider.disabled = true;
+                    fromToContainer.style.opacity = 0.2;
+                    intelTextContainer.style.opacity = 1;
+                    intelSlideContainer.style.opacity = 1;
+                }
+                updateOutput();
+            }
+            intelSlider.oninput = function() {
+                intel = this.value;
+                outputIntel.innerHTML = 'Intelligence: ' + this.value;
+                updateOutput();
+            }
+            numSlider.oninput = function() {
+                bottles = this.value;
+                outputNum.innerHTML = 'Number of Bottles: ' + this.value;
+                updateOutput();
+            }
+            fromSlider.oninput = function() {
+                if (parseInt(fromSlider.value) > parseInt(toSlider.value) - 1) {
+                    fromSlider.value = toSlider.value - 1;
+                    from = fromSlider.value;
+                }
+                from = this.value;
+                outputFrom.innerHTML = 'From: ' + this.value;
+                updateOutput();
+            }
+            toSlider.oninput = function() {
+                if (parseInt(fromSlider.value) > parseInt(toSlider.value) - 1) {
+                    fromSlider.value = toSlider.value - 1;
+                    from = fromSlider.value;
+                    outputFrom.innerHTML = 'From: ' + from;
+                }
+                to = this.value;
+                outputTo.innerHTML = 'To: ' + this.value;
+                updateOutput();
+            }
+
+        </script>
+    </body>
+</html>
